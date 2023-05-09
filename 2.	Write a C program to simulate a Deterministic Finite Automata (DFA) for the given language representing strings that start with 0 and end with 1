@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+#define STATE_START 0
+#define STATE_MIDDLE 1
+#define STATE_END 2
+#define STATE_REJECT 3
+
+int main() {
+    char input[100];
+    int currentState = STATE_START;
+
+    printf("Enter a string: ");
+    scanf("%s", input);
+
+    int i = 0;
+    while (input[i] != '\0') {
+        switch (currentState) {
+            case STATE_START:
+                if (input[i] == '0') {
+                    currentState = STATE_MIDDLE;
+                } else {
+                    currentState = STATE_REJECT;
+                }
+                break;
+
+            case STATE_MIDDLE:
+                if (input[i] == '0') {
+                    currentState = STATE_MIDDLE;
+                } else if (input[i] == '1') {
+                    currentState = STATE_END;
+                } else {
+                    currentState = STATE_REJECT;
+                }
+                break;
+
+            case STATE_END:
+                currentState = STATE_REJECT;
+                break;
+
+            case STATE_REJECT:
+                break;
+        }
+
+        i++;
+    }
+
+    if (currentState == STATE_END) {
+        printf("Accepted\n");
+    } else {
+        printf("Rejected\n");
+    }
+
+    return 0;
+}
