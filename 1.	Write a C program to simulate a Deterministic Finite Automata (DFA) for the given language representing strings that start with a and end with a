@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+#define STATES 3
+
+int isAccepted(char *input) {
+    int currentState = 0;
+    int i = 0;
+
+    while (input[i] != '\0') {
+        if (currentState == 0 && input[i] == 'a') {
+            currentState = 1;
+        } else if (currentState == 1 && input[i] == 'a') {
+            currentState = 2;
+        } else {
+            currentState = -1; // Invalid transition
+            break;
+        }
+
+        i++;
+    }
+
+    return (currentState == 2);
+}
+
+int main() {
+    char input[100];
+
+    printf("Enter a string: ");
+    scanf("%s", input);
+
+    if (isAccepted(input)) {
+        printf("Accepted\n");
+    } else {
+        printf("Not Accepted\n");
+    }
+
+    return 0;
+}
